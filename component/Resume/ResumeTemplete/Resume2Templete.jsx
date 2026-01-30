@@ -17,7 +17,7 @@ function ResumeTemplate2() {
   return (
     <div className="resume2-wrapper">
       {/* LEFT SIDEBAR */}
-      <div className="resume2-sidebar">
+      <div className="resume2-sidebr">
         <div className="resume2-profile-container">
           <Image 
             src="/img/userImg.jpg" 

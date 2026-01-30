@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-function FormThree({ UserId }) {
+function FormThree({ onComplete }) {
   const router = useRouter();
 
   const [skills, setSkills] = useState([]);
@@ -47,11 +47,12 @@ function FormThree({ UserId }) {
     };
 
     localStorage.setItem("resumeData", JSON.stringify(updatedData));
-    alert("Resume Data Completed");
+    onComplete()
+    // alert("Resume Data Completed");
 
-    setTimeout(() => {
-      router.push(`ResumeProfile/${UserId}`);
-    }, 1000);
+    // setTimeout(() => {
+    //   router.push(`ResumeProfile/${UserId}`);
+    // }, 1000);
   };
 
   return (

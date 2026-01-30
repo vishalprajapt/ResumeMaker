@@ -1,81 +1,125 @@
-import React from "react";
-import { resume1Data } from "@/Helper/Helper";
+import React, { useEffect, useState } from "react";
 import { FaPhone } from "react-icons/fa6";
 import { IoLocation } from "react-icons/io5";
 import { MdOutlineMail } from "react-icons/md";
 
-
 function ResumeTemplateOne() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("resumeData")) || {};
+      setData(stored);
+    } catch (err) {
+      console.error("Resume data error");
+    }
+  }, []);
+
   const {
     name,
     role,
-    contact,
+    contact = {},
     about,
-    education,
-    experience,
-    skills,
-    references,
-  } = resume1Data;
+    education = [],
+    experience = [],
+    skills = [],
+    references = [],
+  } = data;
 
   return (
     <div className="resume-page resume1">
       {/* HEADER */}
-      <h1 className="name">{name}</h1>
-      <p className="role">{role}</p>
+      {name && <h1 className="name">{name}</h1>}
+      {role && <p className="role">{role}</p>}
 
-      <div className="contact">
-        <span style={{display:"flex",gap:"3px"}}><span><FaPhone/></span><span>{contact.phone}</span></span>
-       <span style={{display:"flex",gap:"3px"}}> <span><IoLocation/></span><span>{contact.address}</span></span>
-        <span style={{display:"flex",gap:"3px"}}> <span><MdOutlineMail/></span> <span>{contact.email}</span></span>
-      </div>
+      {(contact.phone || contact.address || contact.email) && (
+        <div className="contact">
+          {contact.phone && (
+            <span style={{ display: "flex", gap: "3px" }}>
+              <FaPhone />
+              <span>{contact.phone}</span>
+            </span>
+          )}
+
+          {contact.address && (
+            <span style={{ display: "flex", gap: "3px" }}>
+              <IoLocation />
+              <span>{contact.address}</span>
+            </span>
+          )}
+
+          {contact.email && (
+            <span style={{ display: "flex", gap: "3px" }}>
+              <MdOutlineMail />
+              <span>{contact.email}</span>
+            </span>
+          )}
+        </div>
+      )}
 
       {/* ABOUT */}
-      <Section title="ABOUT ME">
-        <p>{about}</p>
-      </Section>
+      {about && (
+        <Section title="ABOUT ME">
+          <p>{about}</p>
+        </Section>
+      )}
 
       {/* EDUCATION */}
-      <Section title="EDUCATION">
-        {education.map((item, i) => (
-          <Row key={i} left={item.year + " • " + item.institute}>
-            <h4>{item.degree}</h4>
-            <p>{item.description}</p>
-          </Row>
-        ))}
-      </Section>
+      {education.length > 0 && (
+        <Section title="EDUCATION">
+          {education.map((item, i) => (
+            <Row
+              key={i}
+              left={`${item?.year || ""}${item?.institute ? " • " + item.institute : ""}`}
+            >
+              {item?.degree && <h4>{item.degree}</h4>}
+              {item?.description && <p>{item.description}</p>}
+            </Row>
+          ))}
+        </Section>
+      )}
 
       {/* EXPERIENCE */}
-      <Section title="EXPERIENCE">
-        {experience.map((item, i) => (
-          <Row key={i} left={item.year + " • " + item.company}>
-            <h4>{item.role}</h4>
-            <p>{item.description}</p>
-          </Row>
-        ))}
-      </Section>
+      {experience.length > 0 && (
+        <Section title="EXPERIENCE">
+          {experience.map((item, i) => (
+            <Row
+              key={i}
+              left={`${item?.year || ""}${item?.company ? " • " + item.company : ""}`}
+            >
+              {item?.role && <h4>{item.role}</h4>}
+              {item?.description && <p>{item.description}</p>}
+            </Row>
+          ))}
+        </Section>
+      )}
 
       {/* SKILLS */}
-      <Section title="SKILLS">
-        <ul className="skills">
-          {skills.map((skill, i) => (
-            <li key={i}>{skill}</li>
-          ))}
-        </ul>
-      </Section>
+      {skills.length > 0 && (
+        <Section title="SKILLS">
+          <ul className="skills">
+            {skills.map((skill, i) => (
+              <li key={i}>{skill}</li>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       {/* REFERENCES */}
-      <Section title="REFERENCES">
-        <div className="references">
-          {references.map((ref, i) => (
-            <div key={i}>
-              <h4>{ref.name}</h4>
-              <p>{ref.role}</p>
-              <p><b>Phone:</b> {ref.phone}</p>
-              <p><b>Social:</b> {ref.social}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {references.length > 0 && (
+        <Section title="REFERENCES">
+          <div className="references">
+            {references.map((ref, i) => (
+              <div key={i}>
+                {ref?.name && <h4>{ref.name}</h4>}
+                {ref?.role && <p>{ref.role}</p>}
+                {ref?.phone && <p><b>Phone:</b> {ref.phone}</p>}
+                {ref?.social && <p><b>Social:</b> {ref.social}</p>}
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   );
 }

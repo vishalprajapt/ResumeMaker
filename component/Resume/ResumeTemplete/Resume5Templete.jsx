@@ -1,16 +1,27 @@
-import React from 'react';
-import { resume1Data } from '@/Helper/Helper';
+import React from "react";
+import Image from "next/image";
+import { resume1Data } from "@/Helper/Helper";
 import { FaPhone, FaGlobe } from "react-icons/fa6";
 import { IoLocation } from "react-icons/io5";
 import { MdOutlineMail } from "react-icons/md";
-import Image from 'next/image';
 
 const Resume5Template = () => {
-  const { name, role, contact, about, education, experience, skills, language } = resume1Data;
+  const {
+    name,
+    role,
+    contact,
+    about,
+    education = [],
+    experience = [],
+    skills = [],
+    language = [],
+    references = [],
+    passportImage,
+  } = resume1Data || {};
 
-  const nameParts = name.split(' ');
-  const firstName = nameParts[0];
-  const lastName = nameParts.slice(1).join(' ');
+  const nameParts = name?.split(" ") || [];
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ");
 
   return (
     <div className="resume5-container d-flex">
@@ -20,11 +31,11 @@ const Resume5Template = () => {
 
         <div className="resume5-profile-circle text-center">
           <Image
-            src="/img/userImg.jpg"
+            src={passportImage || "/img/userImg.jpg"}
             alt="Profile"
             width={160}
             height={160}
-            style={{ objectFit: 'fill' }}
+            style={{ objectFit: "fill" }}
           />
         </div>
 
@@ -33,18 +44,29 @@ const Resume5Template = () => {
           <h2 className="resume5-sidebar-title">Contact</h2>
 
           <div className="d-flex flex-column gap-3" style={{ fontSize: "10pt" }}>
-            <div className="d-flex align-items-center gap-3">
-              <FaPhone size={14} /> {contact.phone}
-            </div>
-            <div className="d-flex align-items-center gap-3">
-              <MdOutlineMail size={14} /> {contact.email}
-            </div>
-            <div className="d-flex align-items-center gap-3">
-              <IoLocation size={14} /> {contact.address}
-            </div>
-            <div className="d-flex align-items-center gap-3">
-              <FaGlobe size={14} /> www.reallygreatsite.com
-            </div>
+            {contact?.phone && (
+              <div className="d-flex align-items-center gap-3">
+                <FaPhone size={14} /> {contact.phone}
+              </div>
+            )}
+
+            {contact?.email && (
+              <div className="d-flex align-items-center gap-3">
+                <MdOutlineMail size={14} /> {contact.email}
+              </div>
+            )}
+
+            {contact?.address && (
+              <div className="d-flex align-items-center gap-3">
+                <IoLocation size={14} /> {contact.address}
+              </div>
+            )}
+
+            {contact?.website && (
+              <div className="d-flex align-items-center gap-3">
+                <FaGlobe size={14} /> {contact.website}
+              </div>
+            )}
           </div>
         </section>
 
@@ -54,7 +76,9 @@ const Resume5Template = () => {
 
           {education.map((edu, idx) => (
             <div key={idx} className="mb-4">
-              <p className="fw-bold" style={{ fontSize: "11pt" }}>{edu.year}</p>
+              <p className="fw-bold" style={{ fontSize: "11pt" }}>
+                {edu.year}
+              </p>
               <p className="fw-bold text-uppercase" style={{ fontSize: "9pt" }}>
                 {edu.institute}
               </p>
@@ -76,9 +100,12 @@ const Resume5Template = () => {
         {/* LANGUAGES */}
         <section className="resume5-sidebar-section">
           <h2 className="resume5-sidebar-title">Languages</h2>
-          <ul className="resume5-sidebar-list" style={{display:"flex",gap:"20px"}}>
-            {language.map((lang, idx) => (  
-                <li key={idx}>{lang}</li>
+          <ul
+            className="resume5-sidebar-list"
+            style={{ display: "flex", gap: "20px" }}
+          >
+            {language.map((lang, idx) => (
+              <li key={idx}>{lang}</li>
             ))}
           </ul>
         </section>
@@ -99,79 +126,74 @@ const Resume5Template = () => {
         </header>
 
         {/* PROFILE */}
-        <section className="mb-5">
-          <h2 className="resume5-content-title">Profile</h2>
-          <p
-            className="text-dark lh-base"
-            style={{ fontSize: "10.5pt", textAlign: "justify" }}
-          >
-            {about}
-          </p>
-        </section>
+        {about && (
+          <section className="mb-5">
+            <h2 className="resume5-content-title">Profile</h2>
+            <p
+              className="text-dark lh-base"
+              style={{ fontSize: "10.5pt", textAlign: "justify" }}
+            >
+              {about}
+            </p>
+          </section>
+        )}
 
         {/* WORK EXPERIENCE */}
         <section className="mb-5">
           <h2 className="resume5-content-title">Work Experience</h2>
 
-          <div className="resume5-timeline">
-            {experience.map((job, idx) => (
-              <div key={idx} className="resume5-exp-item mb-4">
-
-                <div
-                  className="d-flex justify-content-between fw-bold"
-                  style={{ fontSize: "12pt" }}
-                >
-                  <span>{job.company}</span>
-                  <span className="text-secondary fw-normal">
-                    {job.year}
-                  </span>
-                </div>
-
-                <p className="fst-italic text-muted mb-2">
-                  {job.role}
-                </p>
-
-                <ul
-                  className="ms-4 text-dark"
-                  style={{ fontSize: "10pt", listStyleType: "disc" }}
-                >
-                  <li>{job.description}</li>
-
-                </ul>
-
+          {experience.map((job, idx) => (
+            <div key={idx} className="resume5-exp-item mb-4">
+              <div
+                className="d-flex justify-content-between fw-bold"
+                style={{ fontSize: "12pt" }}
+              >
+                <span>{job.company}</span>
+                <span className="text-secondary fw-normal">
+                  {job.year}
+                </span>
               </div>
-            ))}
-          </div>
+
+              <p className="fst-italic text-muted mb-2">
+                {job.role}
+              </p>
+
+              <ul
+                className="ms-4 text-dark"
+                style={{ fontSize: "10pt", listStyleType: "disc" }}
+              >
+                <li>{job.description}</li>
+              </ul>
+            </div>
+          ))}
         </section>
 
         {/* REFERENCES */}
-        <section>
-          <h2 className="resume5-content-title">Reference</h2>
+        {references.length > 0 && (
+          <section>
+            <h2 className="resume5-content-title">Reference</h2>
 
-          <div className="resume5-reference-grid d-grid" style={{ gap: "20px" }}>
-            <div>
-              <p className="fw-bold">Estelle Darcy</p>
-              <p style={{ fontSize: "9pt" }}>Wardiere Inc. / CTO</p>
-              <p className="text-muted mt-1" style={{ fontSize: "8pt" }}>
-                Phone: 123-456-7890
-              </p>
-              <p className="text-muted" style={{ fontSize: "8pt" }}>
-                Email: hello@reallygreatsite.com
-              </p>
+            <div
+              className="resume5-reference-grid d-grid"
+              style={{ gap: "20px" }}
+            >
+              {references.map((ref, idx) => (
+                <div key={idx}>
+                  <p className="fw-bold">{ref.name}</p>
+                  <p style={{ fontSize: "9pt" }}>{ref.role}</p>
+                  <p className="text-muted mt-1" style={{ fontSize: "8pt" }}>
+                    Phone: {ref.phone}
+                  </p>
+                  {ref.social && (
+                    <p className="text-muted" style={{ fontSize: "8pt" }}>
+                      {ref.social}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
-
-            <div>
-              <p className="fw-bold">Harper Richard</p>
-              <p style={{ fontSize: "9pt" }}>Wardiere Inc. / CEO</p>
-              <p className="text-muted mt-1" style={{ fontSize: "8pt" }}>
-                Phone: 123-456-7890
-              </p>
-              <p className="text-muted" style={{ fontSize: "8pt" }}>
-                Email: hello@reallygreatsite.com
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
       </main>
     </div>

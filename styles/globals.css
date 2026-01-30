@@ -1357,3 +1357,206 @@ box-shadow: 0 15px 60px rgba(0, 0, 0, 0.12);
 }
 
 
+
+/*=========================>Form4<===============================*/
+.form4-wrapper {
+  width: 60%;
+  margin: 220px auto;
+  background: var(--bg-card);
+  padding: 30px 35px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-light);
+}
+
+.form4-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 8px;
+}
+
+/* ================= Buttons ================= */
+
+.form4-btn {
+  background: var(--primary-color);
+  color: var(--black);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 14px 0;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-right: 14px;
+}
+
+.form4-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ================= Popup Form ================= */
+
+.form4-popup {
+  background: var(--gray-light);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+}
+
+/* ================= Inputs ================= */
+
+.form4-input,
+.form4-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.form4-input:focus,
+.form4-textarea:focus {
+  border-color: var(--primary-color);
+  background: var(--white);
+}
+
+/* ================= Save Button ================= */
+
+.form4-save-btn {
+  background: var(--primary-dark);
+  color: var(--white);
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form4-save-btn:hover {
+  opacity: 0.9;
+}
+
+/* ================= Preview Card ================= */
+
+.form4-preview {
+  background: var(--white);
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  border-left: 4px solid var(--primary-color);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ================= Finish Button ================= */
+
+.form4-finish-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: var(--black);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form4-finish-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width: 900px) {
+  .form4-wrapper {
+    width: 90%;
+    padding: 25px;
+  }
+}
+
+
+
+/*=================================>Form5<==========================*/
+
+.form5_title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+.form5_type_selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form5_type_btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.form5_type_btn.active {
+  background: var(--primary-color);
+  color: var(--black);
+}
+
+.form5_experience_card {
+  border: 1px solid var(--border-light);
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background: var(--white);
+}
+
+.form5_input,
+.form5_textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.form5_add_btn {
+  margin-bottom: 20px;
+  background: transparent;
+  color: var(--accent);
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form5_remove_btn {
+  background: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+}
+
+.form5_fresher_box {
+  background: var(--gray-light);
+  padding: 14px;
+  border-radius: 10px;
+}

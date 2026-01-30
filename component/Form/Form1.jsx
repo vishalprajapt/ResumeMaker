@@ -17,81 +17,49 @@ function FormOne({ onComplete }) {
   const [preview, setPreview] = useState(null);
 
   // 🔹 Convert image to passport size
-  const resizeToPassport = (file) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const reader = new FileReader();
+ const resizeToPassport = (file) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const reader = new FileReader();
 
-      reader.onload = () => (img.src = reader.result);
-      reader.readAsDataURL(file);
+    reader.onload = () => (img.src = reader.result);
+    reader.readAsDataURL(file);
 
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = PASSPORT_WIDTH;
-        canvas.height = PASSPORT_HEIGHT;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = PASSPORT_WIDTH;
+      canvas.height = PASSPORT_HEIGHT;
 
-        const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
 
-        const imgRatio = img.width / img.height;
-        const targetRatio = PASSPORT_WIDTH / PASSPORT_HEIGHT;
+      ctx.drawImage(img, 0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
 
-        let sx, sy, sw, sh;
+      const base64 = canvas.toDataURL("image/jpeg", 0.95);
+      resolve(base64);
+    };
+  });
+};
 
-        if (imgRatio > targetRatio) {
-          sh = img.height;
-          sw = sh * targetRatio;
-          sx = (img.width - sw) / 2;
-          sy = 0;
-        } else {
-          sw = img.width;
-          sh = sw / targetRatio;
-          sx = 0;
-          sy = (img.height - sh) / 2;
-        }
-
-        ctx.drawImage(
-          img,
-          sx,
-          sy,
-          sw,
-          sh,
-          0,
-          0,
-          PASSPORT_WIDTH,
-          PASSPORT_HEIGHT
-        );
-
-        canvas.toBlob((blob) => {
-          const passportFile = new File([blob], file.name, {
-            type: "image/jpeg",
-            lastModified: Date.now(),
-          });
-          resolve(passportFile);
-        }, "image/jpeg", 0.95);
-      };
-    });
-  };
 
   // 🔹 Watch image & resize
-  useEffect(() => {
-    if (watchImage && watchImage[0]) {
-      resizeToPassport(watchImage[0]).then((passportImg) => {
-        const url = URL.createObjectURL(passportImg);
-        setPreview(url);
-        setValue("passportImage", passportImg);
-      });
-    }
-  }, [watchImage, setValue]);
+useEffect(() => {
+  if (watchImage && watchImage[0]) {
+    resizeToPassport(watchImage[0]).then((base64Img) => {
+      setPreview(base64Img);
+      setValue("passportImage", base64Img);
+    });
+  }
+}, [watchImage, setValue]);
+
 
  const onSubmit = (data) => {
-  const oldData =
-    JSON.parse(localStorage.getItem("resumeData")) || {};
+  const oldData = JSON.parse(localStorage.getItem("resumeData")) || {};
 
   const updatedData = {
     ...oldData,
     name: data.name,
     role: data.role,
-    profileImage: data.profileImage,
+    passportImage: data.passportImage, 
     contact: {
       phone: data.phone,
       address: data.address,
@@ -101,8 +69,9 @@ function FormOne({ onComplete }) {
   };
 
   localStorage.setItem("resumeData", JSON.stringify(updatedData));
-  onComplete(); // move to FormTwo
+  onComplete();
 };
+
 
 
   return (

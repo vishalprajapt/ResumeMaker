@@ -9,6 +9,11 @@ import { MdOutlineMail } from "react-icons/md";
 function ResumeTemplate2() {
   const { name, role, contact, about, education, experience, skills, references ,language } = resume1Data;
 
+
+  const handlefucntion=()=>{
+    
+  }
+
   return (
     <div className="resume2-wrapper">
       {/* LEFT SIDEBAR */}

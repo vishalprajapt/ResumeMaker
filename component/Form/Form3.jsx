@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 function FormThree({ onComplete }) {
@@ -10,6 +10,20 @@ function FormThree({ onComplete }) {
   const [languages, setLanguages] = useState([]);
   const [languageInput, setLanguageInput] = useState("");
 
+  // 🔹 Load skills & languages from localStorage (BACK button support)
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("resumeData"));
+
+    if (savedData) {
+      if (Array.isArray(savedData.skills)) {
+        setSkills(savedData.skills);
+      }
+      if (Array.isArray(savedData.language)) {
+        setLanguages(savedData.language);
+      }
+    }
+  }, []);
+
   // 🔹 Handle Enter / Comma / Space
   const handleKeyDown = (e, type) => {
     if (e.key === "Enter" || e.key === "," || e.key === " ") {
@@ -19,15 +33,14 @@ function FormThree({ onComplete }) {
       if (!value) return;
 
       if (type === "skill") {
-        setSkills([...skills, value]);
+        setSkills((prev) => [...prev, value]);
         setSkillInput("");
       } else {
-        setLanguages([...languages, value]);
+        setLanguages((prev) => [...prev, value]);
         setLanguageInput("");
       }
     }
   };
-
 
   const removeTag = (index, type) => {
     if (type === "skill") {
@@ -47,12 +60,7 @@ function FormThree({ onComplete }) {
     };
 
     localStorage.setItem("resumeData", JSON.stringify(updatedData));
-    onComplete()
-    // alert("Resume Data Completed");
-
-    // setTimeout(() => {
-    //   router.push(`ResumeProfile/${UserId}`);
-    // }, 1000);
+    onComplete();
   };
 
   return (

@@ -23,6 +23,13 @@ const Resume5Template = () => {
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ");
 
+
+
+    const isExperienceArray = Array.isArray(experience);
+const isFresher =
+  typeof experience === "string" &&
+  experience.toLowerCase().includes("fresher");
+
   return (
     <div className="resume5-container d-flex">
 
@@ -142,7 +149,21 @@ const Resume5Template = () => {
         <section className="mb-5">
           <h2 className="resume5-content-title">Work Experience</h2>
 
-          {experience.map((job, idx) => (
+           {/* EXPERIENCE */}
+        {(isExperienceArray && experience.length > 0) || isFresher ? (
+          <>
+            <h3 className="resume2-body-title">WORK EXPERIENCE</h3>
+
+            {/* FRESHER CASE */}
+            {isFresher && (
+              <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+                Fresher – Looking for an opportunity to start my professional career.
+              </p>
+            )}
+
+            {/* EXPERIENCE ARRAY CASE */}
+              {isExperienceArray && (
+  experience.map((job, idx) => (
             <div key={idx} className="resume5-exp-item mb-4">
               <div
                 className="d-flex justify-content-between fw-bold"
@@ -165,7 +186,14 @@ const Resume5Template = () => {
                 <li>{job.description}</li>
               </ul>
             </div>
-          ))}
+          ))
+
+              )}
+            
+          </>
+        ) : null}
+
+       
         </section>
 
         {/* REFERENCES */}

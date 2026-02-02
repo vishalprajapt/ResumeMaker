@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function Form4({onComplete,UserId}) {
+function Form4({ onComplete, UserId }) {
+  const router = useRouter();
+
   const [showRefForm, setShowRefForm] = useState(false);
   const [showLinkForm, setShowLinkForm] = useState(false);
-  const router=useRouter()
 
   const [references, setReferences] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -22,10 +23,25 @@ function Form4({onComplete,UserId}) {
     description: "",
   });
 
+  // 🔹 LOAD data from localStorage (BACK button support)
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("resumeData"));
+
+    if (savedData) {
+      if (Array.isArray(savedData.references)) {
+        setReferences(savedData.references);
+      }
+      if (Array.isArray(savedData.projects)) {
+        setProjects(savedData.projects);
+      }
+    }
+  }, []);
+
   // ================= Reference =================
   const handleAddReference = () => {
     if (!refInput.name) return;
-    setReferences([...references, refInput]);
+
+    setReferences((prev) => [...prev, refInput]);
     setRefInput({ name: "", role: "", phone: "", social: "" });
     setShowRefForm(false);
   };
@@ -33,7 +49,8 @@ function Form4({onComplete,UserId}) {
   // ================= Project =================
   const handleAddProject = () => {
     if (!projectInput.title) return;
-    setProjects([...projects, projectInput]);
+
+    setProjects((prev) => [...prev, projectInput]);
     setProjectInput({ title: "", link: "", description: "" });
     setShowLinkForm(false);
   };
@@ -49,12 +66,11 @@ function Form4({onComplete,UserId}) {
     };
 
     localStorage.setItem("resumeData", JSON.stringify(updatedData));
-    onComplete()
+    onComplete();
 
     setTimeout(() => {
-        router.push(`ResumeProfile/${UserId}`)
+      router.push(`ResumeProfile/${UserId}`);
     }, 1000);
-
   };
 
   return (

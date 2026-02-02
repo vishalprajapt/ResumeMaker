@@ -28,6 +28,12 @@ function ResumeTemplate3() {
     passportImage,
   } = data;
 
+
+    const isExperienceArray = Array.isArray(experience);
+const isFresher =
+  typeof experience === "string" &&
+  experience.toLowerCase().includes("fresher");
+
   return (
     <div className="resume3-wrapper">
       {/* HEADER SECTION */}
@@ -134,7 +140,23 @@ function ResumeTemplate3() {
           )}
 
           {/* EXPERIENCE */}
-          {experience.length > 0 && (
+
+           {/* EXPERIENCE */}
+  {(isExperienceArray && experience.length > 0) || isFresher ? (
+          <>
+            <h3 className="resume2-body-title">WORK EXPERIENCE</h3>
+
+            {/* FRESHER CASE */}
+            {isFresher && (
+              <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+                Fresher – Looking for an opportunity to start my professional career.
+              </p>
+            )}
+
+            {/* EXPERIENCE ARRAY CASE */}
+
+            {isExperienceArray && (
+                experience.length > 0 && (
             <>
               <div className="resume3-section-title">Work Experience</div>
               {experience.map((exp, i) => (
@@ -170,8 +192,14 @@ function ResumeTemplate3() {
                 </div>
               ))}
             </>
-          )}
+          )
+                
+              )}
+           
 
+          </>
+        ) : null}
+         
           {/* EDUCATION */}
           {education.length > 0 && (
             <>

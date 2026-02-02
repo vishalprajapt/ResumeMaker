@@ -26,6 +26,12 @@ function ResumeTemplateOne() {
     references = [],
   } = data;
 
+
+   const isExperienceArray = Array.isArray(experience);
+const isFresher =
+  typeof experience === "string" &&
+  experience.toLowerCase().includes("fresher");
+
   return (
     <div className="resume-page resume1">
       {/* HEADER */}
@@ -79,8 +85,22 @@ function ResumeTemplateOne() {
         </Section>
       )}
 
-      {/* EXPERIENCE */}
-      {experience.length > 0 && (
+
+   {/* EXPERIENCE */}
+  {(isExperienceArray && experience.length > 0) || isFresher ? (
+          <>
+            <h3 className="resume2-body-title">WORK EXPERIENCE</h3>
+
+            {/* FRESHER CASE */}
+            {isFresher && (
+              <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+                Fresher – Looking for an opportunity to start my professional career.
+              </p>
+            )}
+
+            {/* EXPERIENCE ARRAY CASE */}
+            {isExperienceArray && (
+                experience.length > 0 && (
         <Section title="EXPERIENCE">
           {experience.map((item, i) => (
             <Row
@@ -92,7 +112,14 @@ function ResumeTemplateOne() {
             </Row>
           ))}
         </Section>
-      )}
+      )
+                
+              )}
+           
+          </>
+        ) : null}
+   
+     
 
       {/* SKILLS */}
       {skills.length > 0 && (

@@ -19,6 +19,12 @@ const Resume6Template = () => {
     passportImage,
   } = resume1Data || {};
 
+
+     const isExperienceArray = Array.isArray(experience);
+const isFresher =
+  typeof experience === "string" &&
+  experience.toLowerCase().includes("fresher");
+
   return (
     <div className="resume6-container">
 
@@ -136,7 +142,20 @@ const Resume6Template = () => {
             )}
 
             {/* EXPERIENCE */}
-            {experience.length > 0 && (
+              {(isExperienceArray && experience.length > 0) || isFresher ? (
+          <>
+            <h3 className="resume2-body-title">WORK EXPERIENCE</h3>
+
+            {/* FRESHER CASE */}
+            {isFresher && (
+              <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+                Fresher – Looking for an opportunity to start my professional career.
+              </p>
+            )}
+
+            {/* EXPERIENCE ARRAY CASE */}
+            {isExperienceArray &&
+              experience.length > 0 && (
               <section className="mb-5">
                 <h2 className="resume6-section-title">Work Experience</h2>
 
@@ -155,6 +174,10 @@ const Resume6Template = () => {
                 ))}
               </section>
             )}
+          </>
+        ) : null}
+            
+           
 
             {/* REFERENCES */}
             {references.length > 0 && (

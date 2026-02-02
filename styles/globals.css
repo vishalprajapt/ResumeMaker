@@ -12,6 +12,44 @@
 
 }
 
+/*=========================>backbutton<==========================*/
+.back-btn-wrapper {
+  position: absolute;
+  top: 100px;
+  left: 50px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;          /* equal left-right padding */
+  border-radius: 8px;
+
+  background-color: var(--primary-color);
+  color: var(--text-dark);
+
+  border: 1px solid var(--border);
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.back-btn svg {
+  font-size: 20px;
+}
+
+.back-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateX(-3px);
+}
+
+
 
 /*===========================>Header <=========================*/
 .header {
@@ -25,6 +63,7 @@
   box-sizing: border-box;
   position: fixed;
   top: 0px;
+  z-index: 999 !important;
 }
 
 /* Logo */
@@ -720,6 +759,7 @@ box-shadow: 0 15px 60px rgba(0, 0, 0, 0.12);
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
+    gap: 17px;
 }
 
 .resume5-profile-circle {

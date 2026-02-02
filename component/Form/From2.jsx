@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function FormTwo({ onComplete }) {
   const [edu, setEdu] = useState({
@@ -8,18 +8,35 @@ function FormTwo({ onComplete }) {
     description: "",
   });
 
+  // 🔹 Load last education from localStorage (for back button)
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("resumeData"));
+
+    if (savedData?.education?.length) {
+      const lastEdu = savedData.education[savedData.education.length - 1];
+
+      setEdu({
+        year: lastEdu.year || "",
+        institute: lastEdu.institute || "",
+        degree: lastEdu.degree || "",
+        description: lastEdu.description || "",
+      });
+    }
+  }, []);
+
   const addEducation = () => {
     const oldData = JSON.parse(localStorage.getItem("resumeData")) || {};
 
     const updatedData = {
       ...oldData,
-      education: [...(oldData.education || []), edu],
+      education: [edu],
     };
 
     localStorage.setItem("resumeData", JSON.stringify(updatedData));
 
-    // Reset fields
-    onComplete()
+    onComplete();
+
+    // Optional reset (only if moving forward)
     setEdu({
       year: "",
       institute: "",
@@ -61,7 +78,6 @@ function FormTwo({ onComplete }) {
       />
 
       <div className="form-two-actions">
-        
         <button className="form-two-btn next-btn" onClick={addEducation}>
           Next
         </button>

@@ -29,6 +29,20 @@ function ResumeTemplate2() {
     passportImage,
   } = data;
 
+
+ 
+
+  const isExperienceArray = Array.isArray(experience);
+const isFresher =
+  typeof experience === "string" &&
+  experience.toLowerCase().includes("fresher");
+
+
+  
+
+
+  // console.log("experience", experience)
+
   return (
     <div className="resume2-wrapper">
       {/* LEFT SIDEBAR */}
@@ -147,39 +161,53 @@ function ResumeTemplate2() {
         )}
 
         {/* EXPERIENCE */}
-        {experience.length > 0 && (
+        {/* EXPERIENCE */}
+        {(isExperienceArray && experience.length > 0) || isFresher ? (
           <>
             <h3 className="resume2-body-title">WORK EXPERIENCE</h3>
-            {experience.map((exp, i) => (
-              <div key={i} style={{ marginBottom: "20px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <span>{exp?.company}</span>
-                  <span>{exp?.year}</span>
-                </div>
-                {exp?.role && (
+
+            {/* FRESHER CASE */}
+            {isFresher && (
+              <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+                Fresher – Looking for an opportunity to start my professional career.
+              </p>
+            )}
+
+            {/* EXPERIENCE ARRAY CASE */}
+            {isExperienceArray &&
+              experience.map((exp, i) => (
+                <div key={i} style={{ marginBottom: "20px" }}>
                   <div
                     style={{
-                      fontStyle: "italic",
-                      fontSize: "13px",
-                      margin: "2px 0",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontWeight: "bold",
                     }}
                   >
-                    {exp.role}
+                    {exp?.company && <span>{exp.company}</span>}
+                    {exp?.year && <span>{exp.year}</span>}
                   </div>
-                )}
-                {exp?.description && (
-                  <p style={{ fontSize: "12px" }}>{exp.description}</p>
-                )}
-              </div>
-            ))}
+
+                  {exp?.role && (
+                    <div
+                      style={{
+                        fontStyle: "italic",
+                        fontSize: "13px",
+                        margin: "2px 0",
+                      }}
+                    >
+                      {exp.role}
+                    </div>
+                  )}
+
+                  {exp?.description && (
+                    <p style={{ fontSize: "12px" }}>{exp.description}</p>
+                  )}
+                </div>
+              ))}
           </>
-        )}
+        ) : null}
+
       </div>
     </div>
   );

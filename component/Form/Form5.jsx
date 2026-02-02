@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Form5({ onComplete }) {
   const [type, setType] = useState(""); // experience | fresher
   const [experienceList, setExperienceList] = useState([
     { year: "", company: "", role: "", description: "" },
   ]);
+
+  // 🔹 LOAD DATA FROM LOCALSTORAGE
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("resumeData"));
+
+    if (savedData?.experience) {
+      if (savedData.experience === "fresher") {
+        setType("fresher");
+      } else {
+        setType("experience");
+        setExperienceList(savedData.experience);
+      }
+    }
+  }, []);
 
   const handleChange = (index, field, value) => {
     const updated = [...experienceList];
@@ -71,7 +85,7 @@ function Form5({ onComplete }) {
       {type === "fresher" && (
         <div className="form5_fresher_box">
           <p className="form5_fresher_text">
-            You are marked as a <strong>Fresher</strong>.  
+            You are marked as a <strong>Fresher</strong>.
             No work experience will be added.
           </p>
         </div>

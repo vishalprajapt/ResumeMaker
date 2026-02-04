@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 
@@ -16,15 +16,16 @@ function Resume() {
   const router=useRouter()
   const [showForm, setshowForm]=useState(false)
 
-
-
-
-
   const handleCreatResume=(id)=>{
     router.push(`UserForm/${id}`)
   }
 
+  useEffect(()=>{
+    setTimeout(() => {
+      // localStorage.removeItem("resumeData")
+    }, 3000);
 
+  },[])
    
 
 

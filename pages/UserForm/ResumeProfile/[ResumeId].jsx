@@ -6,6 +6,7 @@ import Resume4Template from '@/component/Resume/ResumeTemplete/Resume4Templete'
 import Resume5Template from '@/component/Resume/ResumeTemplete/Resume5Templete'
 import Resume6Template from '@/component/Resume/ResumeTemplete/Resume6Templete'
 import { useRouter } from 'next/router'
+import BackButton from '@/component/BackButton/BackButton'
 
 function ResumeId() {
   const router=useRouter()
@@ -35,10 +36,18 @@ function ResumeId() {
   }
 
 
+  const handleBack=()=>{
+    router.push("/")
+  }
+
+
   return (
+    <>
+    <BackButton   handleBack={handleBack} />
     <div>
       {RenderResume()}
     </div>
+    </>
   )
 }
 

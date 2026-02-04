@@ -21,7 +21,7 @@ function Progressbar({ currentStep }) {
       <div className="progress-header">
         <span>
           {currentStep < 6
-            ? `Step ${currentStep} of 3`
+            ? `Step ${currentStep} of 6`
             : "Completed Successfully 🎉"}
         </span>
       </div>

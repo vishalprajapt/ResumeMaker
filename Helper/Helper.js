@@ -91,3 +91,5 @@ export const resume1Data = (() => {
 
   return staticResumeData;
 })();
+
+

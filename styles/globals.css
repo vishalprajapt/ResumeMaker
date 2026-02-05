@@ -1924,3 +1924,77 @@
 .btn-logout:hover {
   background: var(--gray-light);
 }
+
+
+
+/*=======================>firebase by Loging<======================*/
+/* Theme variables already defined in :root */
+
+.firebase-wrapper {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 15px;
+}
+
+.firebase-card {
+  width: 350px;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.firebase-card h2 {
+  margin-bottom: 20px;
+}
+
+.firebase-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.firebase-card button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: var(--primary-dark);
+  color: var(--bg-card);
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.google-btn {
+  background: #db4437;
+}
+
+.divider {
+  margin: 15px 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.toggle-text {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.toggle-text span {
+  color: var(--primary-dark);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
